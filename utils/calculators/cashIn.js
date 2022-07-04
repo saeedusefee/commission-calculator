@@ -1,8 +1,8 @@
 import { commissionFee } from "../helpers";
 
-export const setCashInCommission = (operation, config) => {
-    const commission = commissionFee(operation.amount, config.percents) // Calculate commisson in percent
-    const finalCommissoin = Math.min(commission, config.max.amount).toFixed(2); // Set limitation of Maximum commision
-
+export const setCashInCommission = (transactionInfo, config) => {
+    const amout = transactionInfo.operation.amount;
+    const commission = commissionFee(amout, config.percents) // Calculate commisson in percent
+    const finalCommissoin = Math.min(commission, config.max.amount); // Set limitation of Maximum commision
     return finalCommissoin
 }

@@ -1,36 +1,12 @@
-import { CASH_IN, CASH_OUT, LEGAL_PERSONS_CASH_OUT } from '../utils/constants';
 import { client } from './http';
 
-export const getCommissionConfiguration = async (type) => {
-  switch (type) {
-    case CASH_IN: {
-      try {
-        const response = await client.get('cash-in');
-        return response.data;
-      } catch (error) {
-        console.log(error);
-      }
-    }
+const getConfig = async (configName) => {
+  const result = await client.get(configName);
+  return { [configName]: result.data };
+};
 
-    case CASH_OUT: {
-      try {
-        const response = await client.get('cash-out-natural');
-        return response.data;
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    case LEGAL_PERSONS_CASH_OUT: {
-      try {
-        const response = await client.get('cash-out-juridical');
-        return response.data;
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    default:
-      return {};
-  }
+export const getCommissionConfiguration = async () => {
+  const configs = await Promise.all([getConfig('cash-in'), getConfig('cash-out-natural'), getConfig('cash-out-juridical')]);
+  
+  return  Object.assign(...configs);
 };
