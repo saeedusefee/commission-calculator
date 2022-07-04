@@ -9,11 +9,15 @@ export const setNaturalCashOut = (transactionInfo, config) => {
   if (filterUserHistory.length > 0) {
     const userHistory = filterUserHistory[0];
     if (userHistory.weekTransaction.weekNumber === getWeekNumber(transactionInfo.date)) {
-      // Update total cash out amount per week
-      userHistory.weekTransaction.amount += transactionInfo.operation.amount;
       // Check limitation of total cash out amount at current week
       if (userHistory.weekTransaction.amount > config.week_limit.amount) {
         return commissionFee(transactionInfo.operation.amount, config.percents);
+      }
+      // Update total cash out amount per week
+      userHistory.weekTransaction.amount += transactionInfo.operation.amount;
+      // 
+      if (userHistory.weekTransaction.amount > config.week_limit.amount) {
+        return commissionFee(transactionInfo.operation.amount - config.week_limit.amount, config.percents);
       }
     } else {
       // Replace new week and new total transaction per week (We don't need to the past after a week)
@@ -36,15 +40,16 @@ export const setNaturalCashOut = (transactionInfo, config) => {
   cashOutHistory.push(newCashOutHistory);
 
   if (transactionInfo.operation.amount > config.week_limit.amount) {
-    return commissionFee(transactionInfo.operation.amount, config.percents);
+    return commissionFee(transactionInfo.operation.amount - config.week_limit.amount, config.percents);
   } else {
     return 0;
   }
 };
 
-export const setLegalPersonCashOut = (operation, config) => {
-  const commission = commissionFee(operation.amount, config.percents) // Calculate commisson in percent
-  const finalCommissoin = Math.max(commission, config.min.amount).toFixed(2); // Set limitation of Minimum commision
+export const setLegalPersonCashOut = (transactionInfo, config) => {
+  const amount = transactionInfo.operation.amount;
+  const commission = commissionFee(amount, config.percents); // Calculate commisson in percent
+  const finalCommissoin = Math.max(commission, config.min.amount); // Set limitation of Minimum commision
 
-  return finalCommissoin
+  return finalCommissoin;
 };
