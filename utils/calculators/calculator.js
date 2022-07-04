@@ -1,6 +1,6 @@
 import { getCommissionConfiguration } from '../../services/api';
 import { CASH_IN, CASH_IN_TYPE, CASH_OUT_NATURAL, LEGAL_PERSONS_CASH_OUT, NATURAL } from '../constants';
-import { sortByDate } from '../helpers';
+import { currencyValidation, sortByDate } from '../helpers';
 import { setCashInCommission } from './cashIn';
 import { setLegalPersonCashOut, setNaturalCashOut } from './cashOut';
 
@@ -19,7 +19,11 @@ export const commissionCalculator = async (inputData) => {
   const sortedTransactions = sortByDate(inputData);
   const setupConfig = await getCommissionConfiguration();
   const finalResult = sortedTransactions.map((transactionReq) => {
-    return getTransactionStrategy(transactionReq, setupConfig);
+    if (currencyValidation(transactionReq.operation.currency)) {
+      return getTransactionStrategy(transactionReq, setupConfig);
+    } else {
+      console.error('Unexpected currency');
+    }
   });
 
   // console.log(finalResult);
