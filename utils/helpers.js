@@ -1,4 +1,5 @@
 import moment from "moment";
+import { whiteListCurrencies } from "./config";
 
 export const sortByDate = (data) => {
   return data.sort((a, b) => {
@@ -12,4 +13,8 @@ export const commissionFee = (amount, percent) => {
 
 export const getWeekNumber = (date) => {
   return moment(date, "YYYYMMDD").isoWeek();
+};
+
+export const currencyValidation = (currencyType) => {
+  return whiteListCurrencies.includes(currencyType);
 };
