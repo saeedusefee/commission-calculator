@@ -15,9 +15,9 @@ export const setNaturalCashOut = (transactionInfo, config) => {
       }
       // Update total cash out amount per week
       userHistory.weekTransaction.amount += transactionInfo.operation.amount;
-      // 
+      //
       if (userHistory.weekTransaction.amount > config.week_limit.amount) {
-        return commissionFee(transactionInfo.operation.amount - config.week_limit.amount, config.percents);
+        return commissionFee(userHistory.weekTransaction.amount - config.week_limit.amount, config.percents);
       }
     } else {
       // Replace new week and new total transaction per week (We don't need to the past after a week)
