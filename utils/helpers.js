@@ -1,20 +1,10 @@
-import moment from "moment";
-import { whiteListCurrencies } from "./config";
+import moment from 'moment';
+import { whiteListCurrencies } from './config';
 
-export const sortByDate = (data) => {
-  return data.sort((a, b) => {
-    return new Date(a.date) - new Date(b.date);
-  });
-};
+export const sortByDate = (data) => data.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-export const commissionFee = (amount, percent) => {
-  return Math.ceil(amount * percent) / 100;
-};
+export const commissionFee = (amount, percent) => Math.ceil(amount * percent) / 100;
 
-export const getWeekNumber = (date) => {
-  return moment(date, "YYYYMMDD").isoWeek();
-};
+export const getWeekNumber = (date) => moment(date, 'YYYYMMDD').isoWeek();
 
-export const currencyValidation = (currencyType) => {
-  return whiteListCurrencies.includes(currencyType);
-};
+export const currencyValidation = (currencyType) => whiteListCurrencies.includes(currencyType);

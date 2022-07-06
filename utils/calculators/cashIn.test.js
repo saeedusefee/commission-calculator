@@ -1,4 +1,4 @@
-import { setCashInCommission } from './cashIn';
+import setCashInCommission from './cashIn';
 
 const mockInput = [
   {

@@ -3,14 +3,14 @@
     "jest": true,
     "es6": true
   },
-  "plugins": ["import", "prettier"],
-  "extends": ["plugin:prettier/recommended"],
-  "parser": "babel-eslint",
+  "plugins": ["import"],
+  "extends": ["airbnb-base"],
+  "parser": "@babel/eslint-parser",
   "rules": {
-    "prettier/prettier": "error",
     "no-console": "warn",
     "no-eval": "error",
     "import/first": "error",
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "max-len": ["error", { "code": 120 }],
   }
 }
