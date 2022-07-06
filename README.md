@@ -2,34 +2,34 @@
 ## Installation and Run
 > **Installing all the dependencies**
 
-> `yarn`
+`yarn`
 
-> or
+or
 
-> `npm install`
+`npm install`
 
 >**Runs the app**
 
->`yarn start`
+`yarn start`
 
->or
+or
 
->`npm start`
+`npm start`
 
 >**Runs the tests**
 
->`yarn test`
+`yarn test`
 
->or
+or
 
->`npm test`
+`npm test`
 
 ## Folder and File structure
 
 >**services**
 
->Here I implemented three APIs for setup configuration
+Here I implemented three APIs for setup configuration
 
 >**utils**
 
->Here you can find modules and logical functions to calculating commission fees
+Here you can find modules and logical functions to calculating commission fees
