@@ -41,13 +41,12 @@ export const setNaturalCashOut = (transactionInfo, config) => {
 
   if (transactionInfo.operation.amount > config.week_limit.amount) {
     return commissionFee(transactionInfo.operation.amount - config.week_limit.amount, config.percents);
-  } else {
-    return 0;
   }
+  return 0;
 };
 
 export const setLegalPersonCashOut = (transactionInfo, config) => {
-  const amount = transactionInfo.operation.amount;
+  const { amount } = transactionInfo.operation;
   const commission = commissionFee(amount, config.percents); // Calculate commisson in percent
   const finalCommissoin = Math.max(commission, config.min.amount); // Set limitation of Minimum commision
 
